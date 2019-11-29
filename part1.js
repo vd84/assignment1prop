@@ -9,7 +9,7 @@ var myObject = {
                 } else {
                     if (protList != null) {
                         for (i = 0; i < protList.length; i++) {
-                            if (protList[i].call(funcName, parameters)) {
+                            if (protList[i].call(funcName, parameters) != null) {
                                 return protList[i].call(funcName, parameters);
                             }
                         }
