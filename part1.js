@@ -1,32 +1,36 @@
 var myObject = {
-    create: function (protListParameter) {
-        var instance = {
-            protList: protListParameter,
-            call: function (funcName, parameters) {
-                //Check if this object has the method
-                if (this.hasOwnProperty(funcName)) {
-                    return this[funcName](parameters);
-                } else {
-                    if (this.protList.length !== null) {
-                        for (let i = 0; i < this.protList.length; i++) {
-                            if (this.protList[i].call(funcName, parameters) !== undefined) {
-                                return this.protList[i].call(funcName, parameters);
+        create: function (protListParameter) {
+            var instance = {
+                protList: [],
+                call: function (funcName, parameters) {
+                    //Check if this object has the method
+                    if (this.hasOwnProperty(funcName)) {
+                        return this[funcName](parameters);
+                    } else {
+                        if (this.protList.length !== null) {
+                            for (let i = 0; i < this.protList.length; i++) {
+                                if (this.protList[i].call(funcName, parameters) !== undefined) {
+                                    return this.protList[i].call(funcName, parameters);
+                                }
                             }
                         }
                     }
+                }
+            };
+            if (protListParameter !== null) {
+                for (i = 0; i < protListParameter.length; i++) {
+                    if (protListParameter[i].protList.indexOf(instance) !== -1) {
+                        throw new DOMException("Cant use circular inheritence");
+                    } else {
+                        instance.protList.push(protListParameter[i]);
+                    }
 
                 }
-
-
             }
+            return instance;
+        }
+    };
 
-
-        };
-        return instance;
-    }
-
-
-};
 
 
 //Test code
