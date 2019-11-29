@@ -9,7 +9,7 @@ let myObject = {
                         return this[funcName](parameters);
                     } else {
                         //Check if parents has method
-                        if (this.prototypeList.length !== null) {
+                        if (this.prototypeList !== null) {
                             for (let i = 0; i < this.prototypeList.length; i++) {
                                 if (this.prototypeList[i].call(funcName, parameters) !== undefined) {
                                     return this.prototypeList[i].call(funcName, parameters);
@@ -52,8 +52,7 @@ let myObject = {
             return instance;
         }
 
-    }
-;
+    };
 
 
 //Test code
@@ -63,7 +62,7 @@ obj0.func = function (arg) {
     return "func0: " + arg;
 };
 var obj1 = myObject.create([obj0]);
-obj0.addPrototype(obj1);
+//obj0.addPrototype(obj1);
 var obj2 = myObject.create([]);
 
 var obj3 = myObject.create([obj1, obj2]);
