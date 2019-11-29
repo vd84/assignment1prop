@@ -18,7 +18,7 @@ let myObject = {
                         }
                     }
                 },
-                //Cannot add superclass that introduces circular inheritence
+                //Cannot add prototype that introduces circular inheritance
                 addPrototype: function (myObject) {
                     if (myObject.prototypeList !== null) {
                         for (i = 0; i < myObject.prototypeList.length; i++) {
