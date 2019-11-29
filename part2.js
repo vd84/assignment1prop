@@ -15,7 +15,7 @@ createClass = function (className, superClassList) {
 
                     } else {
                         //Check if parents has method
-                        if (this.superClasses.length !== null) {
+                        if (this.superClasses.length >0 ) {
                             for (let i = 0; i < this.superClasses.length; i++) {
                                 if (this.superClasses[i].call(funcName, parameters) !== undefined) {
                                     return this.superClasses[i].call(funcName, parameters);

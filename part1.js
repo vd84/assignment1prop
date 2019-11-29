@@ -9,7 +9,7 @@ let myObject = {
                         return this[funcName](parameters);
                     } else {
                         //Check if parents has method
-                        if (this.prototypeList !== null) {
+                        if (this.prototypeList.length >  0) {
                             for (let i = 0; i < this.prototypeList.length; i++) {
                                 if (this.prototypeList[i].call(funcName, parameters) !== undefined) {
                                     return this.prototypeList[i].call(funcName, parameters);
