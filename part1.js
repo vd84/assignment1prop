@@ -19,7 +19,7 @@ let myObject = {
                     }
                 },
                 //Cannot add superclass that introduces circular inheritence
-                addSuperClass: function (myObject) {
+                addPrototype: function (myObject) {
                     if (myObject.prototypeList !== null) {
                         for (i = 0; i < myObject.prototypeList.length; i++) {
                             console.log("in for loop")
@@ -63,7 +63,7 @@ obj0.func = function (arg) {
     return "func0: " + arg;
 };
 var obj1 = myObject.create([obj0]);
-obj0.addSuperClass(obj1);
+obj0.addPrototype(obj1);
 var obj2 = myObject.create([]);
 
 var obj3 = myObject.create([obj1, obj2]);
