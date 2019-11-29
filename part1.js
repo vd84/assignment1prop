@@ -1,28 +1,30 @@
 let myObject = {
     create: function (protListParameter) {
         let instance = {
-            protList: [],
+            prototypeList: [],
             call: function (funcName, parameters) {
                 //Check if this object has the method
                 if (this.hasOwnProperty(funcName)) {
                     return this[funcName](parameters);
                 } else {
-                    if (this.protList.length !== null) {
-                        for (let i = 0; i < this.protList.length; i++) {
-                            if (this.protList[i].call(funcName, parameters) !== undefined) {
-                                return this.protList[i].call(funcName, parameters);
+                    //Check if parents has method
+                    if (this.prototypeList.length !== null) {
+                        for (let i = 0; i < this.prototypeList.length; i++) {
+                            if (this.prototypeList[i].call(funcName, parameters) !== undefined) {
+                                return this.prototypeList[i].call(funcName, parameters);
                             }
                         }
                     }
                 }
             }
         };
+        //Add parents to "prototypeList" if they dont introduce circular inheritance
         if (protListParameter !== null) {
             for (i = 0; i < protListParameter.length; i++) {
                 if (protListParameter[i].protList.indexOf(instance) !== -1) {
                     throw new DOMException("Cant use circular inheritence");
                 } else {
-                    instance.protList.push(protListParameter[i]);
+                    instance.prototypeList.push(protListParameter[i]);
                 }
 
             }
