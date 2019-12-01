@@ -8,12 +8,17 @@ createClass = function (className, superClassListParameter) {
 
         },
         new: function () {
+            console.log(this);
+            console.log(superClassListParameter)
+            //Populate superclass list
             if (superClassListParameter !== null) {
-                for (i = 0; i < superClassListParameter.length; i++) {
-                    if (superClassListParameter[i].getObjectSuperClass().indexOf(customClass) !== -1) {
-                        throw new DOMException("Cant use circular inheritence");
-                    } else {
-                        this.objectSuperClassList.push(superClassListParameter[i]);
+                if (superClassListParameter.length > 0) {
+                    for (i = 0; i < superClassListParameter.length; i++) {
+                        if (superClassListParameter[i].getObjectSuperClass().indexOf(customClass) !== -1) {
+                            throw new DOMException("Cant use circular inheritence");
+                        } else {
+                            this.objectSuperClassList.push(superClassListParameter[i]);
+                        }
                     }
                 }
             }
@@ -21,14 +26,13 @@ createClass = function (className, superClassListParameter) {
             let instanceSuperClassList = this.objectSuperClassList;
 
 
-            //Add parents to "prototypeList" if they dont introduce circular inheritance
             let instance = {
                 call: function (funcName, parameters) {
                     //Check if this customClass has the method
                     if (thisInstance.hasOwnProperty(funcName)) {
                         return thisInstance[funcName](parameters);
                     } else {
-                        //Check if parents has method
+                        //Check if superclasses has method
                         if (instanceSuperClassList !== null) {
                             if (instanceSuperClassList.length > 0) {
                                 for (let i = 0; i < instanceSuperClassList.length; i++) {
@@ -62,11 +66,11 @@ createClass = function (className, superClassListParameter) {
 
 // TEST
 class0 = createClass("Class0", null);
-class0.func = function (arg) {
-    return "func0: " + arg;
-};
 class1 = createClass("Class1", [class0]);
 class2 = createClass("Class2", []);
+class2.func = function (arg) {
+    return "func2: " + arg;
+};
 class3 = createClass("Class3", [class2, class1]);
 obj3 = class3.new();
 result = obj3.call("func", ["hello"]);
