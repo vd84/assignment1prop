@@ -14,11 +14,7 @@ createClass = function (className, superClassListParameter) {
                         throw new DOMException("Cant use circular inheritence");
                     } else {
                         this.objectSuperClassList.push(superClassListParameter[i]);
-
-
                     }
-
-
                 }
             }
             const thisInstance = this;
@@ -26,7 +22,6 @@ createClass = function (className, superClassListParameter) {
 
 
             //Add parents to "prototypeList" if they dont introduce circular inheritance
-
             let instance = {
                 call: function (funcName, parameters) {
                     //Check if this customClass has the method
@@ -46,24 +41,20 @@ createClass = function (className, superClassListParameter) {
                     }
                 },
             };
-
             return instance;
 
 
         },
         //Cannot add superclass that introduces circular inheritance
         addSuperClass: function (object) {
-                if (object.objectSuperClassList.indexOf(this) !== -1) {
-                    throw new DOMException("Cant use circular inheritence");
-                } else {
-                    this.objectSuperClassList.push(object);
-
-
+            if (object.objectSuperClassList.indexOf(this) !== -1) {
+                throw new DOMException("Cant use circular inheritence");
+            } else {
+                this.objectSuperClassList.push(object);
 
 
             }
         }
-
     };
     return customClass;
 
@@ -71,7 +62,9 @@ createClass = function (className, superClassListParameter) {
 
 // TEST
 class0 = createClass("Class0", null);
-class0.func = function(arg) { return "func0: " + arg; };
+class0.func = function (arg) {
+    return "func0: " + arg;
+};
 class1 = createClass("Class1", [class0]);
 class2 = createClass("Class2", []);
 class3 = createClass("Class3", [class2, class1]);
